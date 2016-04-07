@@ -12,7 +12,14 @@ var UserSchema = new mongoose.Schema({
 	interests : {type : Array},
 	skills : [String],
 	mentorIds : {type: String},
-	menteeIds : {type : String}
+	menteeIds : {type : String},
+	location : {
+		name: { type : String, required :true},
+		addressStreet : {type : String, required : true},
+		addressCity : {type : String, required : true},
+		addressState: {type : String, required : true},
+		addressZip : {type : String, required : true}
+		}
 	},
 	{collection: 'user'}
 );
