@@ -1,0 +1,10 @@
+<div ng-controller="eventController">
+	<form ng-submit="addLocation()">
+		Name : <input type="text" ng-model="newLocation.name" required="true" /><br>
+		Address Street : <input type="text" ng-model="newLocation.addressStreet" required="true"/> <br>
+		City : <input type = "text" ng-model="newLocation.addressCity" required="true"/> <br>
+		State : <input type="text" ng-model="newLocaiton.addressState" required="true"/><br>
+		Zip : <input type="text" ng-model="newLocation.addressZip" required="true" /><br>
+		<input type="submit" value="Add Location"/>
+	</form>
+</div>

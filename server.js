@@ -14,11 +14,17 @@ mongoose.connect(config.database, function(err){
 	}
 });
 
-app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended : false}));
 
-app.use(bodyParser.urlencoded({extended : true}));
+app.use(express.static(__dirname + '/public/views'));
 
-routes.addAPIRouter(app, mongoose);
+app.use('/api', routes);
+
+/**app.get('/', function(req, res){
+	res.sendFile(__dirname + '/public/views/events.html');
+});*/
+//routes.addAPIRouter(app, mongoose);
 
 app.listen(config.port, function(err){
 	if(err) {

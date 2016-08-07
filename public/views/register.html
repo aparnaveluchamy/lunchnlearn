@@ -1,0 +1,11 @@
+
+<div ng-controller="authController">
+		<form id="message-form" ng-Submit="register()">
+			Username : <input type="text" name="username" ng-model="register.username" class="form-control"/> 
+			Password : <input type="password" name="password" ng-model="register.password" class="form-control"/> 
+			Location :  <select ng-model="newEvent.locationName">
+  						<option ng-repeat="name in locNames"> {{ name }}</option>
+					</select> 
+			<input type="submit" value="Register" />
+		</form>
+	</div>
