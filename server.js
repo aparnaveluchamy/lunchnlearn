@@ -17,14 +17,9 @@ mongoose.connect(config.database, function(err){
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : false}));
 
-app.use(express.static(__dirname + '/public/views'));
+app.use(express.static(__dirname + '/public/views/'));
 
 app.use('/api', routes);
-
-/**app.get('/', function(req, res){
-	res.sendFile(__dirname + '/public/views/events.html');
-});*/
-//routes.addAPIRouter(app, mongoose);
 
 app.listen(config.port, function(err){
 	if(err) {
