@@ -51,7 +51,7 @@ var express = require('express');
 
 	router.get('/events', function(req, res) {
 		
-		Event.find({}).exec(function(err, events) 
+		Event.find({time :{$gt:new Date()}}).exec(function(err, events) 
 		{
 			if (err) {
 				console.log(err);
@@ -63,7 +63,7 @@ var express = require('express');
 	});
 
 	router.get('/events/:locationId', function(req, res){
-		Event.find({location : req.params.locationId}).exec(function(err, events){
+		Event.find({location : req.params.locationId, time :{$gt:new Date()}}).exec(function(err, events){
 			if(err) throw err;
 
 			res.json(events);

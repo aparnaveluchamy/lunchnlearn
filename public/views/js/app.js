@@ -147,6 +147,11 @@ app.controller('eventController', function($scope, $location, eventService, loca
 		
 		$scope.newEvent.time = new Date($scope.eventTime.year, $scope.eventTime.month, $scope.eventTime.day,
 											 $scope.eventTime.hour, $scope.eventTime.minute, 0, 0);
+
+		if ($scope.newEvent.time < new Date()){
+			alert("Event cannot be in the past!");
+		}
+		else {
 		console.log($scope.newEvent.time);
 		locationService.get($scope.locationName).success(function(data){
 			$scope.newEvent.location = data.id;
@@ -155,6 +160,7 @@ app.controller('eventController', function($scope, $location, eventService, loca
 			console.log($scope.newEvent);
 			$location.path('/home');
 		});
+		}
 	};
 
 	$scope.updateEvents = function(){

@@ -3,8 +3,8 @@
 			<select ng-model="locationSelected" ng-change="updateEvents()">
   				<option ng-repeat="name in locNames"> {{ name }}</option>
 			</select> 
-			Today's events:
+			<br>Upcoming events:
 			<div class='events' ng-repeat="event in events">
-				<p> {{ event.name }} on {{ event.time }}  </p>
+				<p> {{ event.name }} on {{ event.time | date :'medium'}}  </p>
 			</div>
 		<a ng-href="#/event" data-method="get"> Add a new Event </a>
