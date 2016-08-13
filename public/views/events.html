@@ -1,18 +1,10 @@
-
-		<form ng-Submit="addEvent()">
-		Name: <input type="text" ng-model="newEvent.name" required="true" /><br>
-		Date & Time: <input type="datetime" ng-model="newEvent.date" required calendar/><br>
-		Duration: <input type="text" ng-model="newEvent.duration" required="true" min="15" max="60"/><br>
-		Keys : <input type='textarea' ng-model="newEvent.keys"/><br>
-		Location :  <select ng-model="newEvent.locationName">
-  						<option ng-repeat="name in locNames"> {{ name }}</option>
-					</select> 
-		<a href="#/location"> Add new Location </a>
-		<br>
-		<input type="submit" value="Add Event" />
-
 		<h4> Events </h4>
+			Choose a Location :  
+			<select ng-model="locationSelected" ng-change="updateEvents()">
+  				<option ng-repeat="name in locNames"> {{ name }}</option>
+			</select> 
+			Today's events:
 			<div class='events' ng-repeat="event in events">
-			<p> {{ event.name }} at {{ event.time }} </p>
+				<p> {{ event.name }} on {{ event.time }}  </p>
 			</div>
-	</form>
+		<a href="#/event"> Add a new Event </a>

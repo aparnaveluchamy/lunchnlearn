@@ -1,23 +1,17 @@
 var Location = require('./model/location.js');
 var User = require('./model/user');
 var Event = require('./model/event');
+var mongoose = require('mongoose');
 var express = require('express');
 	
 	var router = express.Router();
 
-	router.post('/signup', function(req, res) {
+	router.post('/signup', function(req, res) {		
 		var user = new User({
-			firstName: req.body.firstName,
-			lastName : req.body.lastName,
+			fullName: req.body.fullName,
 			password : req.body.password,
 			email : req.body.email,
-			/*location : {
-				name : req.body.locationName,
-				addressStreet : req.body.locationAddressStreet,
-				addressCity : req.body.locationAddressCity,
-				addressState : req.body.locationAddressState,
-				addressZip : req.body.locationAddressZip
-			}*/
+			location : req.body.location
 		});
 
 		user.save(function(err, save) {
@@ -41,14 +35,15 @@ var express = require('express');
 			if(!user) {
 				res.send({error:"User does not exist."});
 			} else {
-				if (req.body.password === user.password){
+				var validPassword = user.comparePassword(req.body.password);
+
+				if(!validPassword) {
+					res.send({ error: "Invalid Password"});
+				} else {
 					res.json({
 						success : true,
 						message: "Login Success!"
 					});
-				}
-				else {
-					res.send({error: "Login failed. Please try again"});
 				}
 			}
 		});
@@ -58,31 +53,36 @@ var express = require('express');
 		
 		Event.find({}).exec(function(err, events) 
 		{
-			if (err) throw err;
-
+			if (err) {
+				console.log(err);
+				res.json({error:err});
+			}
 			res.json(events);
 		});
 
 	});
 
+	router.get('/events/:locationId', function(req, res){
+		Event.find({location : req.params.locationId}).exec(function(err, events){
+			if(err) throw err;
+
+			res.json(events);
+		});
+	});
+
 	router.post('/event', function(req, res) {
-		console.log("Got name as " + req.body.name);
+		console.log("Got time as " + req.body.time);
 		var event = new Event({
 			name : req.body.name,
-			date: req.body.date,
+			time: req.body.time,
 			duration : req.body.duration,
 			keys : req.body.keys,
-			/*location : {
-				name : req.body.locationName,
-				addressStreet : req.body.locationAddressStreet,
-				addressCity : req.body.locationAddressCity,
-				addressState : req.body.locationAddressState,
-				addressZip : req.body.locationAddressZip
-		}*/
+			location : req.body.location,
 		});
 
 		event.save(function(err, save) {
 			if(err){
+				console.log(err);
 				res.json({error:err});
 			}
 			else {
@@ -95,27 +95,36 @@ var express = require('express');
 	});
 
 	router.get('/location/:name', function(req, res){
-
-		Location.find({name: req.param.name}).exec(function(err, location){
+		var locName = req.params.name;
+		//console.log(locName.trim());
+		locName = locName.trim();
+		Location.findOne({name: locName}).exec(function(err, location){
 			if (err) {
 				res.json({error:err});
 			}
-			res.json(location);
+			if(location){
+			//console.log(location._id);
+			res.json({id: mongoose.Types.ObjectId(location._id)});
+		}
+		else{
+			res.json({error:"location is null"});
+		}
 		});
 	});
 
 	router.post('/location', function(req, res)
 	{
 		var loc = new Location({
-				name : req.body.locationName,
-				addressStreet : req.body.locationAddressStreet,
-				addressCity : req.body.locationAddressCity,
-				addressState : req.body.locationAddressState,
-				addressZip : req.body.locationAddressZip
+				name : req.body.name,
+				addressStreet : req.body.addressStreet,
+				addressCity : req.body.addressCity,
+				addressState : req.body.addressState,
+				addressZip : req.body.addressZip
 		});
-
+		console.log(loc);
 		loc.save(function(err, save) {
 			if(err) {
+				console.log(err);
 				res.json({error:err});
 			}
 			else {

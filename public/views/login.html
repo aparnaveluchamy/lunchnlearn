@@ -1,8 +1,9 @@
 <div ng-controller="authController">
 		<form id="message-form" ng-Submit="login()">
 			<p class="text-warning"> {{login_error}} </p>
-			Username : <input type="text" name="username" ng-model="login.username" class="form-control"/> 
+			Email Address : <input type="text" name="email" ng-model="login.email" class="form-control"/> 
 			Password : <input type="password" name="password" ng-model="login.password" class="form-control"/> 
 			<input type="submit" value="Login" />
+			<a href="#/register"> New User? Register </a>
 		</form>
 	</div>

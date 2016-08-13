@@ -1,9 +1,10 @@
 
 <div ng-controller="authController">
 		<form id="message-form" ng-Submit="register()">
-			Username : <input type="text" name="username" ng-model="register.username" class="form-control"/> 
-			Password : <input type="password" name="password" ng-model="register.password" class="form-control"/> 
-			Location :  <select ng-model="newEvent.locationName">
+			Full Name : <input type="test" name="fullName" ng-model="register.user.fullName" class="form-control"/>
+			Email : <input type="text" name="email" ng-model="register.user.email" class="form-control"/> 
+			Password : <input type="password" name="password" ng-model="register.user.password" class="form-control"/> 
+			Location :  <select ng-model="locationName">
   						<option ng-repeat="name in locNames"> {{ name }}</option>
 					</select> 
 			<input type="submit" value="Register" />
