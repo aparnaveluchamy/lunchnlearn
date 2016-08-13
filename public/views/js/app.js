@@ -4,11 +4,11 @@ app.config(function($routeProvider){
 $routeProvider
 		//the timeline display
 		.when('/home', {
-			templateUrl: './events.html',
+			templateUrl: 'events.html',
 			controller: 'eventController'
 		})
 		.when('/event', {
-			templateUrl : './event.html',
+			templateUrl : 'event.html',
 			controller : 'eventController'
 		})
 		//the login display
